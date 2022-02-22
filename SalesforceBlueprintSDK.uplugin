@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SalesforceBlueprintSDK",
+	"Description": "A Blueprint-based wrapper for Salesforce's REST API",
+	"Category": "Other",
+	"CreatedBy": "brno32",
+	"CreatedByURL": "https://github.com/brno32",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "SalesforceBlueprintSDK",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
