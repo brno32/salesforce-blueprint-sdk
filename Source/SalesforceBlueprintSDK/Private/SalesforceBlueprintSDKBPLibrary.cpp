@@ -55,11 +55,6 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
 
     UE_LOG(LogTemp, Warning, TEXT("%s"), *LoginSoapRequestBody)
 
-    // TMap<FString, FString> LoginSoapRequestHeaders;
-    // LoginSoapRequestHeaders.Add(TEXT("content-type"), TEXT("text/xml"));
-    // LoginSoapRequestHeaders.Add(TEXT("charset"), TEXT("UTF-8"));
-    // LoginSoapRequestHeaders.Add(TEXT("SOAPAction"), TEXT("login"));
-
     USalesforce* Salesforce = NewObject<USalesforce>();
 
     FHttpModule& http = FHttpModule::Get();
@@ -71,7 +66,6 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
 	Request->SetHeader(TEXT("Content-Type"), TEXT("text/xml"));
     Request->SetHeader(TEXT("charset"), TEXT("UTF-8"));
     Request->SetHeader(TEXT("SOAPAction"), TEXT("login"));
-    // Request->SetContent(LoginSoapRequestBody);
     Request->SetContentAsString(LoginSoapRequestBody);
 	Request->ProcessRequest();
 };
