@@ -5,7 +5,18 @@
 
 void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
+    FString ResponseString = Response->GetContentAsString();
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *ResponseString)
+
+    FString LeftSide; // can discard
+    FString RightSide;
+    ResponseString.Split(TEXT("<sessionId>"), &LeftSide, &RightSide);
+
+    FString SessionId;
+    FString RightSideOfSessionId; // can discard
+    RightSide.Split(TEXT("</sessionId>"), &SessionId, &RightSideOfSessionId);
+
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *SessionId)
 	// // Create a pointer to hold the json serialized data
 	// TSharedPtr<FJsonObject> JsonObject;
 
