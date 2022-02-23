@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class SALESFORCEBLUEPRINTSDK_API USalesforce : public UObject
 {
 	GENERATED_BODY()
