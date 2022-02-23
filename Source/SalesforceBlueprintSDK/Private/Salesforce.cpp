@@ -36,11 +36,17 @@ void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponse
 	BaseUrl = TEXT("https://") + OrgRestDomain + "/services/data/v" + ApiVersion + "/";
 }
 
+void USalesforce::OnDebugResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
+}
+
 void USalesforce::Create(
     const FString& ObjectName
     // const TMap<FString, FString>& Data
 )
 {
+    FString Endpoint = BaseUrl + TEXT("sobjects/") + ObjectName + TEXT("/");
     FHttpModule& http = FHttpModule::Get();
 	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
 
@@ -53,9 +59,10 @@ void USalesforce::Create(
     FJsonSerializer::Serialize(Payload.ToSharedRef(), Writer);
 
 	Request->SetVerb("POST");
-	Request->SetURL(BaseUrl + TEXT("/sobjects/") + ObjectName + TEXT("/"));
+	Request->SetURL(Endpoint);
+    Request->OnProcessRequestComplete().BindUObject(this, &USalesforce::OnDebugResponseReceived);
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-    Request->SetHeader(TEXT("Authorization"), TEXT("Bearer: ") + SessionId);
+    Request->SetHeader(TEXT("Authorization"), TEXT("Bearer ") + SessionId);
     Request->SetHeader(TEXT("X-PrettyPrint"), TEXT("1"));
     Request->SetContentAsString(OutputString);
 	Request->ProcessRequest();

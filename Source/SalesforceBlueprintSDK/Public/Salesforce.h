@@ -29,6 +29,8 @@ protected:
 public:
 	void OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+	void OnDebugResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
 /* CRUD stuff */
 public:
 	UFUNCTION(BlueprintCallable, Category="Salesforce", meta = (AutoCreateRefTerm = "Client"))
