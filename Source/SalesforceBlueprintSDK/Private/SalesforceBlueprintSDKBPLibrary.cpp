@@ -53,8 +53,6 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
         args
     );
 
-    UE_LOG(LogTemp, Warning, TEXT("%s"), *LoginSoapRequestBody)
-
     USalesforce* Salesforce = NewObject<USalesforce>();
 
     FHttpModule& http = FHttpModule::Get();
