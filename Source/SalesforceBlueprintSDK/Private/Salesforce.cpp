@@ -3,9 +3,9 @@
 
 #include "Salesforce.h"
 
-void USalesforce::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-    // UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
 	// // Create a pointer to hold the json serialized data
 	// TSharedPtr<FJsonObject> JsonObject;
 

@@ -23,6 +23,4 @@ class SALESFORCEBLUEPRINTSDK_API USalesforceBlueprintSDKBPLibrary : public UBlue
 		const FString& Domain
 	);
 
-	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	
 };

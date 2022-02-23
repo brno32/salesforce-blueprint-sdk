@@ -14,6 +14,7 @@ UCLASS()
 class SALESFORCEBLUEPRINTSDK_API USalesforce : public UObject
 {
 	GENERATED_BODY()
-	
-	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+public:
+	void OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
