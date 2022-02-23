@@ -3,6 +3,13 @@
 
 #include "SalesforceBlueprintSDKBPLibrary.h"
 
+#include "HttpModule.h"
+#include "Dom/JsonObject.h"
+#include "Dom/JsonValue.h"
+#include "Misc/FileHelper.h"
+#include "Serialization/JsonWriter.h"
+#include "Serialization/JsonSerializer.h"
+
 // Instantiate Salesforce client
 void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     const FString& Username,
@@ -12,6 +19,7 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
 )
 {
 	FString DefaultClientIDPrefix = TEXT("RestForce");
+    FString DefaultApiVersion = TEXT("52.0");
 
     TArray<FStringFormatArg> args;
     args.Add(FStringFormatArg(DefaultClientIDPrefix));
@@ -44,4 +52,42 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     );
 
     UE_LOG(LogTemp, Warning, TEXT("%s"), *LoginSoapRequestBody)
+
+    // TMap<FString, FString> LoginSoapRequestHeaders;
+    // LoginSoapRequestHeaders.Add(TEXT("content-type"), TEXT("text/xml"));
+    // LoginSoapRequestHeaders.Add(TEXT("charset"), TEXT("UTF-8"));
+    // LoginSoapRequestHeaders.Add(TEXT("SOAPAction"), TEXT("login"));
+
+    FHttpModule& http = FHttpModule::Get();
+	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
+
+	Request->SetVerb("POST");
+	Request->SetURL(TEXT("https://") + Domain + TEXT("salesforce.com/services/Soap/u/") + DefaultApiVersion);
+    // Request->OnProcessRequestComplete().BindUObject(this, &USalesforceBlueprintSDKBPLibrary::OnLoginResponseReceived);
+	Request->SetHeader(TEXT("Content-Type"), TEXT("text/xml"));
+    Request->SetHeader(TEXT("charset"), TEXT("UTF-8"));
+    Request->SetHeader(TEXT("SOAPAction"), TEXT("login"));
+    // Request->SetContent(LoginSoapRequestBody);
+    Request->SetContentAsString(LoginSoapRequestBody);
+	Request->ProcessRequest();
 };
+
+void USalesforceBlueprintSDKBPLibrary::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+    // UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
+	// // Create a pointer to hold the json serialized data
+	// TSharedPtr<FJsonObject> JsonObject;
+
+	// //Create a reader pointer to read the json data
+	// TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+
+	// //Deserialize the json data given Reader and the actual object to deserialize
+	// if (FJsonSerializer::Deserialize(Reader, JsonObject))
+	// {
+	// 	//Get the value of the json object by field name
+	// 	int32 recievedInt = JsonObject->GetIntegerField("customInt");
+
+	// 	//Output it to the engine
+	// 	GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(recievedInt));
+	// }
+}

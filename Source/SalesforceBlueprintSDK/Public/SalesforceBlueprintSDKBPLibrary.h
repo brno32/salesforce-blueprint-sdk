@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Runtime/Online/HTTP/Public/Http.h"
 #include "SalesforceBlueprintSDKBPLibrary.generated.h"
 
 /**
@@ -21,5 +22,7 @@ class SALESFORCEBLUEPRINTSDK_API USalesforceBlueprintSDKBPLibrary : public UBlue
 		const FString& SecurityToken,
 		const FString& Domain
 	);
+
+	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 	
 };
