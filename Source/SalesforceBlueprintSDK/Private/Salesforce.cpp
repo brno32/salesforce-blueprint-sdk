@@ -11,8 +11,7 @@ void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponse
     FString RightSide;
     ResponseString.Split(TEXT("<sessionId>"), &Discardable, &RightSide);
 
-    FString RightSideOfSessionId; // can discard
-    RightSide.Split(TEXT("</sessionId>"), &SessionId, &RightSideOfSessionId);
+    RightSide.Split(TEXT("</sessionId>"), &SessionId, &Discardable);
 
     FString RightSideOfServerUrl;
     ResponseString.Split(TEXT("<serverUrl>"), &Discardable, &RightSideOfServerUrl);
