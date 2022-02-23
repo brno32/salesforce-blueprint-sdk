@@ -42,8 +42,8 @@ void USalesforce::OnDebugResponseReceived(FHttpRequestPtr Request, FHttpResponse
 }
 
 void USalesforce::Create(
-    const FString& ObjectName
-    // const TMap<FString, FString>& Data
+    const FString& ObjectName,
+    const TMap<FString, FString>& Data
 )
 {
     FString Endpoint = BaseUrl + TEXT("sobjects/") + ObjectName + TEXT("/");
@@ -52,7 +52,10 @@ void USalesforce::Create(
 
     TSharedPtr<FJsonObject> Payload = MakeShareable(new FJsonObject);
 
-    Payload->SetStringField(TEXT("Name"), TEXT("Hey"));
+    for (auto& Elem : Data)
+    {
+        Payload->SetStringField(Elem.Key, Elem.Value);
+    }
 
     FString OutputString;
     TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutputString);
