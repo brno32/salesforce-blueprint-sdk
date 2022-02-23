@@ -66,7 +66,7 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
 	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
 
 	Request->SetVerb("POST");
-	Request->SetURL(TEXT("https://") + Domain + TEXT("salesforce.com/services/Soap/u/") + DefaultApiVersion);
+	Request->SetURL(TEXT("https://") + Domain + TEXT(".salesforce.com/services/Soap/u/") + DefaultApiVersion);
     Request->OnProcessRequestComplete().BindUObject(Salesforce, &USalesforce::OnLoginResponseReceived);
 	Request->SetHeader(TEXT("Content-Type"), TEXT("text/xml"));
     Request->SetHeader(TEXT("charset"), TEXT("UTF-8"));
