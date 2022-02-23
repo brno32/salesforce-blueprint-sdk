@@ -8,28 +8,33 @@ void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponse
     FString ResponseString = Response->GetContentAsString();
     UE_LOG(LogTemp, Warning, TEXT("%s"), *ResponseString)
 
-    FString LeftSide; // can discard
+    FString Discardable;
     FString RightSide;
-    ResponseString.Split(TEXT("<sessionId>"), &LeftSide, &RightSide);
+    ResponseString.Split(TEXT("<sessionId>"), &Discardable, &RightSide);
 
-    FString SessionId;
     FString RightSideOfSessionId; // can discard
     RightSide.Split(TEXT("</sessionId>"), &SessionId, &RightSideOfSessionId);
 
     UE_LOG(LogTemp, Warning, TEXT("%s"), *SessionId)
-	// // Create a pointer to hold the json serialized data
-	// TSharedPtr<FJsonObject> JsonObject;
 
-	// //Create a reader pointer to read the json data
-	// TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+    FString RightSideOfServerUrl;
+    ResponseString.Split(TEXT("<serverUrl>"), &Discardable, &RightSideOfServerUrl);
 
-	// //Deserialize the json data given Reader and the actual object to deserialize
-	// if (FJsonSerializer::Deserialize(Reader, JsonObject))
-	// {
-	// 	//Get the value of the json object by field name
-	// 	int32 recievedInt = JsonObject->GetIntegerField("customInt");
+    FString ServerUrl;
+    RightSideOfServerUrl.Split(TEXT("</serverUrl>"), &ServerUrl, &Discardable);
 
-	// 	//Output it to the engine
-	// 	GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(recievedInt));
-	// }
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *ServerUrl)
+
+    FString OrgRestDomainWithoutProtocol = ServerUrl.Replace(TEXT("https://"), TEXT("")).Replace(TEXT("http://"), TEXT(""));
+
+    FString OrgRestDomainDirty;
+    OrgRestDomainWithoutProtocol.Split(TEXT("/"), &OrgRestDomainDirty, &Discardable);
+
+    OrgRestDomain = OrgRestDomainDirty.Replace(TEXT("-api"), TEXT(""));
+
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *OrgRestDomain)
+
+	BaseUrl = TEXT("https://") + OrgRestDomain + "/services/data/v" + ApiVersion + "/";
+
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *BaseUrl)
 }

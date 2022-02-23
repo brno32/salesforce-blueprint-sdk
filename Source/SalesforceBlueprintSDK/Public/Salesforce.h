@@ -16,5 +16,16 @@ class SALESFORCEBLUEPRINTSDK_API USalesforce : public UObject
 	GENERATED_BODY()
 
 public:
+	FString ApiVersion = TEXT("52.0");
+
+/* Variables that get populated during OnLoginResponseReceived */
+protected:
+	FString SessionId;
+
+	FString OrgRestDomain;
+
+	FString BaseUrl;
+
+public:
 	void OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
