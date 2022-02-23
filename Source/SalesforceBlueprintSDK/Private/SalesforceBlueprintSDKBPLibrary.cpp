@@ -13,7 +13,7 @@
 #include "Salesforce.h"
 
 // Instantiate Salesforce client
-void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
+USalesforce* USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     const FString& Username,
     const FString& Password,
     const FString& SecurityToken,
@@ -66,4 +66,6 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     Request->SetHeader(TEXT("SOAPAction"), TEXT("login"));
     Request->SetContentAsString(LoginSoapRequestBody);
 	Request->ProcessRequest();
+
+    return Salesforce;
 };

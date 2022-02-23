@@ -3,6 +3,13 @@
 
 #include "Salesforce.h"
 
+#include "HttpModule.h"
+#include "Dom/JsonObject.h"
+#include "Dom/JsonValue.h"
+#include "Misc/FileHelper.h"
+#include "Serialization/JsonWriter.h"
+#include "Serialization/JsonSerializer.h"
+
 void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
     FString ResponseString = Response->GetContentAsString();
@@ -27,4 +34,29 @@ void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponse
     OrgRestDomain = OrgRestDomainDirty.Replace(TEXT("-api"), TEXT(""));
 
 	BaseUrl = TEXT("https://") + OrgRestDomain + "/services/data/v" + ApiVersion + "/";
+}
+
+void USalesforce::Create(
+    const FString& ObjectName
+    // const TMap<FString, FString>& Data
+)
+{
+    FHttpModule& http = FHttpModule::Get();
+	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
+
+    TSharedPtr<FJsonObject> Payload = MakeShareable(new FJsonObject);
+
+    Payload->SetStringField(TEXT("Name"), TEXT("Hey"));
+
+    FString OutputString;
+    TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutputString);
+    FJsonSerializer::Serialize(Payload.ToSharedRef(), Writer);
+
+	Request->SetVerb("POST");
+	Request->SetURL(BaseUrl + TEXT("/sobjects/") + ObjectName + TEXT("/"));
+	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+    Request->SetHeader(TEXT("Authorization"), TEXT("Bearer: ") + SessionId);
+    Request->SetHeader(TEXT("X-PrettyPrint"), TEXT("1"));
+    Request->SetContentAsString(OutputString);
+	Request->ProcessRequest();
 }

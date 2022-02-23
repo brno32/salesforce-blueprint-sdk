@@ -16,7 +16,7 @@ class SALESFORCEBLUEPRINTSDK_API USalesforceBlueprintSDKBPLibrary : public UBlue
 	GENERATED_BODY()
 
 	UFUNCTION(BlueprintCallable, Category="Salesforce", meta = (AutoCreateRefTerm = "Client"))
-	static void InstantiateSalesforceClient(
+	static USalesforce* InstantiateSalesforceClient(
 		const FString& Username,
 		const FString& Password,
 		const FString& SecurityToken,

@@ -28,4 +28,12 @@ protected:
 
 public:
 	void OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+/* CRUD stuff */
+public:
+	UFUNCTION(BlueprintCallable, Category="Salesforce", meta = (AutoCreateRefTerm = "Client"))
+	void Create(
+		const FString& ObjectName
+		// const TMap<FString, FString>& Data
+	);
 };
