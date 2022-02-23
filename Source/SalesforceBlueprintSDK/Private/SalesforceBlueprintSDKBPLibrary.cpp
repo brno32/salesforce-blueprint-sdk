@@ -10,6 +10,8 @@
 #include "Serialization/JsonWriter.h"
 #include "Serialization/JsonSerializer.h"
 
+#include "Salesforce.h"
+
 // Instantiate Salesforce client
 void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     const FString& Username,
@@ -57,6 +59,8 @@ void USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
     // LoginSoapRequestHeaders.Add(TEXT("content-type"), TEXT("text/xml"));
     // LoginSoapRequestHeaders.Add(TEXT("charset"), TEXT("UTF-8"));
     // LoginSoapRequestHeaders.Add(TEXT("SOAPAction"), TEXT("login"));
+
+    USalesforce* Salesforce = NewObject<USalesforce>();
 
     FHttpModule& http = FHttpModule::Get();
 	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
