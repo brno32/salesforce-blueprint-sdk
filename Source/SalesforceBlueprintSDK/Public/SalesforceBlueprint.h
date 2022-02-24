@@ -42,6 +42,4 @@ protected:
 	FString SecurityToken;
 	FString Domain;
 
-	FString URL;
-
 };

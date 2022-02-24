@@ -10,27 +10,6 @@
 
 void USalesforceBlueprint::Activate()
 {
-	// Create HTTP Request
-	// TSharedRef<IHttpRequest, ESPMode::ThreadSafe> HttpRequest = FHttpModule::Get().CreateRequest();
-	// HttpRequest->SetVerb("GET");
-	// HttpRequest->SetHeader("Content-Type", "application/json");
-	// HttpRequest->SetURL(URL);
-
-	// // Setup Async response
-	// HttpRequest->OnProcessRequestComplete().BindLambda([this](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
-	// 	{
-	// 		FString ResponseString = "";
-	// 		if (bSuccess)
-	// 		{
-	// 			ResponseString = Response->GetContentAsString();
-	// 		}
-
-	// 		this->HandleRequestCompleted(ResponseString, bSuccess);
-	// 	});
-
-	// // Handle actual request
-	// HttpRequest->ProcessRequest();
-
 	FString DefaultClientIDPrefix = TEXT("RestForce");
     FString DefaultApiVersion = TEXT("52.0");
 
