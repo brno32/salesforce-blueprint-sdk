@@ -19,16 +19,14 @@ public:
 	FString ApiVersion = TEXT("52.0");
 
 /* Variables that get populated during OnLoginResponseReceived */
-protected:
+public:
 	FString SessionId;
 
 	FString OrgRestDomain;
 
 	FString BaseUrl;
 
-public:
-	void OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-
+protected:
 	void OnDebugResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 /* CRUD stuff */

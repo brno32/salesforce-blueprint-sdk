@@ -1,6 +1,5 @@
 // Copyright brno32. All Rights Reserved.
 
-
 #include "SalesforceBlueprintSDKBPLibrary.h"
 
 #include "HttpModule.h"
@@ -60,7 +59,7 @@ USalesforce* USalesforceBlueprintSDKBPLibrary::InstantiateSalesforceClient(
 
 	Request->SetVerb("POST");
 	Request->SetURL(TEXT("https://") + Domain + TEXT(".salesforce.com/services/Soap/u/") + DefaultApiVersion);
-    Request->OnProcessRequestComplete().BindUObject(Salesforce, &USalesforce::OnLoginResponseReceived);
+    // Request->OnProcessRequestComplete().BindUObject(Salesforce, &USalesforce::OnLoginResponseReceived);
 	Request->SetHeader(TEXT("Content-Type"), TEXT("text/xml"));
     Request->SetHeader(TEXT("charset"), TEXT("UTF-8"));
     Request->SetHeader(TEXT("SOAPAction"), TEXT("login"));

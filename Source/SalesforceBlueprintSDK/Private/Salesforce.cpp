@@ -10,32 +10,6 @@
 #include "Serialization/JsonWriter.h"
 #include "Serialization/JsonSerializer.h"
 
-void USalesforce::OnLoginResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-    FString ResponseString = Response->GetContentAsString();
-
-    FString Discardable;
-    FString RightSide;
-    ResponseString.Split(TEXT("<sessionId>"), &Discardable, &RightSide);
-
-    RightSide.Split(TEXT("</sessionId>"), &SessionId, &Discardable);
-
-    FString RightSideOfServerUrl;
-    ResponseString.Split(TEXT("<serverUrl>"), &Discardable, &RightSideOfServerUrl);
-
-    FString ServerUrl;
-    RightSideOfServerUrl.Split(TEXT("</serverUrl>"), &ServerUrl, &Discardable);
-
-    FString OrgRestDomainWithoutProtocol = ServerUrl.Replace(TEXT("https://"), TEXT("")).Replace(TEXT("http://"), TEXT(""));
-
-    FString OrgRestDomainDirty;
-    OrgRestDomainWithoutProtocol.Split(TEXT("/"), &OrgRestDomainDirty, &Discardable);
-
-    OrgRestDomain = OrgRestDomainDirty.Replace(TEXT("-api"), TEXT(""));
-
-	BaseUrl = TEXT("https://") + OrgRestDomain + "/services/data/v" + ApiVersion + "/";
-}
-
 void USalesforce::OnDebugResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
     UE_LOG(LogTemp, Warning, TEXT("%s"), *Response->GetContentAsString())
