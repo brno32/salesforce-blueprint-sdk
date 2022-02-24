@@ -73,7 +73,7 @@ void USalesforceBlueprint::HandleRequestCompleted(FString ResponseString, bool b
 
 	if (bSuccess)
 	{
-		FString ApiVersion = TEXT("52.0");
+		ApiVersion = TEXT("52.0");
 		FString SessionId;
 		FString OrgRestDomain;
 		FString BaseUrl;
@@ -102,6 +102,7 @@ void USalesforceBlueprint::HandleRequestCompleted(FString ResponseString, bool b
 		Salesforce->SessionId = SessionId;
 		Salesforce->OrgRestDomain = OrgRestDomain;
 		Salesforce->BaseUrl = BaseUrl;
+		Salesforce->ApiVersion = ApiVersion;
 	}
 
 	Completed.Broadcast(Salesforce, bSuccess);
@@ -112,7 +113,8 @@ USalesforceBlueprint* USalesforceBlueprint::ConnectToSalesforce(
 	const FString& Username,
 	const FString& Password,
 	const FString& SecurityToken,
-	const FString& Domain
+	const FString& Domain,
+	const FString& ApiVersion
 )
 {
 	// Create Action Instance for Blueprint System
@@ -121,6 +123,7 @@ USalesforceBlueprint* USalesforceBlueprint::ConnectToSalesforce(
 	Action->Password = Password;
 	Action->SecurityToken = SecurityToken;
 	Action->Domain = Domain;
+	Action->ApiVersion = ApiVersion;
 	Action->RegisterWithGameInstance(WorldContextObject);
 
 	return Action;
