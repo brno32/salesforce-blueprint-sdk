@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
-#include "SalesforceDelete.generated.h"
+#include "SalesforceGet.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDeleteRequestCompleted, bool, bSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnGetRequestCompleted, const FString&, Payload, bool, bSuccess);
 
 /**
  * 
  */
 UCLASS()
-class SALESFORCEBLUEPRINTSDK_API USalesforceDelete : public UBlueprintAsyncActionBase
+class SALESFORCEBLUEPRINTSDK_API USalesforceGet : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
-
+	
 protected:
 	class USalesforce* Salesforce;
 
@@ -24,14 +24,14 @@ protected:
 	FString RecordId;
 
 protected:
-	void HandleRequestCompleted(bool bSuccess);
+	void HandleRequestCompleted(const FString& ResponseString, bool bSuccess);
 
 public:
 	/** Execute the actual load */
 	virtual void Activate() override;
 
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "Salesforce", WorldContext = "WorldContextObject"))
-	static USalesforceDelete* DeleteSalesforceRecord(
+	static USalesforceGet* GetSalesforceRecord(
 		UObject* WorldContextObject,
 		class USalesforce* Salesforce,
 		const FString& ObjectName,
@@ -39,6 +39,6 @@ public:
 	);
 
 	UPROPERTY(BlueprintAssignable)
-	FOnDeleteRequestCompleted Completed;
-	
+	FOnGetRequestCompleted Completed;
+
 };

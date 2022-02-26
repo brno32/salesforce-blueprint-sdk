@@ -21,6 +21,8 @@ protected:
 
 	FString ObjectName;
 
+	FString RecordId;
+
 	TMap<FString, FString> Data;
 
 protected:
@@ -35,6 +37,7 @@ public:
 		UObject* WorldContextObject,
 		class USalesforce* Salesforce,
 		const FString& ObjectName,
+		const FString& RecordId,
 		const TMap<FString, FString>& Data
 	);
 

@@ -11,7 +11,7 @@
 
 void USalesforceDelete::Activate()
 {
-    FString Endpoint = Salesforce->BaseUrl + TEXT("sobjects/") + ObjectName + TEXT("/");
+    FString Endpoint = Salesforce->BaseUrl + TEXT("sobjects/") + ObjectName + TEXT("/") + RecordId;
     FHttpModule& http = FHttpModule::Get();
 	TSharedPtr<IHttpRequest, ESPMode::ThreadSafe> Request = http.CreateRequest();
 
@@ -35,13 +35,15 @@ void USalesforceDelete::HandleRequestCompleted(bool bSuccess)
 USalesforceDelete* USalesforceDelete::DeleteSalesforceRecord(
 	UObject* WorldContextObject,
 	USalesforce* Salesforce,
-    const FString& ObjectName
+    const FString& ObjectName,
+	const FString& RecordId
 )
 {
 	// Create Action Instance for Blueprint System
 	USalesforceDelete* Action = NewObject<USalesforceDelete>();
 	Action->Salesforce = Salesforce;
     Action->ObjectName = ObjectName;
+	Action->RecordId = RecordId;
 	Action->RegisterWithGameInstance(WorldContextObject);
 
 	return Action;
