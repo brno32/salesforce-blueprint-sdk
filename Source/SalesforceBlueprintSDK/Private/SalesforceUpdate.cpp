@@ -30,6 +30,16 @@ void USalesforceUpdate::Activate()
 	Request->SetURL(Endpoint);
 	Request->OnProcessRequestComplete().BindLambda([this](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
 	{
+		FString ResponseString = "";
+		if (bSuccess)
+		{
+			ResponseString = Response->GetContentAsString();
+		}
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("%s"), *Response->GetContentAsString())
+        }
+        
 		HandleRequestCompleted(bSuccess);
 	});
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));

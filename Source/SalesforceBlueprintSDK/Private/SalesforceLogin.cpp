@@ -1,6 +1,6 @@
 // Copyright brno32. All Rights Reserved.
 
-#include "SalesforceBlueprint.h"
+#include "SalesforceLogin.h"
 
 #include "Salesforce.h"
 
@@ -8,7 +8,7 @@
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 
-void USalesforceBlueprint::Activate()
+void USalesforceLogin::Activate()
 {
 	FString DefaultClientIDPrefix = TEXT("RestForce");
     FString DefaultApiVersion = TEXT("52.0");
@@ -57,6 +57,10 @@ void USalesforceBlueprint::Activate()
 		{
 			ResponseString = Response->GetContentAsString();
 		}
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("%s"), *Response->GetContentAsString())
+        }
 
 		HandleRequestCompleted(ResponseString, bSuccess);
 	});
@@ -67,7 +71,7 @@ void USalesforceBlueprint::Activate()
 	Request->ProcessRequest();
 }
 
-void USalesforceBlueprint::HandleRequestCompleted(FString ResponseString, bool bSuccess)
+void USalesforceLogin::HandleRequestCompleted(FString ResponseString, bool bSuccess)
 {
 	USalesforce* Salesforce = NewObject<USalesforce>();
 
@@ -108,7 +112,7 @@ void USalesforceBlueprint::HandleRequestCompleted(FString ResponseString, bool b
 	Completed.Broadcast(Salesforce, bSuccess);
 }
 
-USalesforceBlueprint* USalesforceBlueprint::ConnectToSalesforce(
+USalesforceLogin* USalesforceLogin::LoginToSalesforce(
 	UObject* WorldContextObject,
 	const FString& Username,
 	const FString& Password,
@@ -118,7 +122,7 @@ USalesforceBlueprint* USalesforceBlueprint::ConnectToSalesforce(
 )
 {
 	// Create Action Instance for Blueprint System
-	USalesforceBlueprint* Action = NewObject<USalesforceBlueprint>();
+	USalesforceLogin* Action = NewObject<USalesforceLogin>();
 	Action->Username = Username;
 	Action->Password = Password;
 	Action->SecurityToken = SecurityToken;

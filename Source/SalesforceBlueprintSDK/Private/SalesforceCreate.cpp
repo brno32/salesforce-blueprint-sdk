@@ -35,6 +35,10 @@ void USalesforceCreate::Activate()
 		{
 			ResponseString = Response->GetContentAsString();
 		}
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("%s"), *Response->GetContentAsString())
+        }
 
 		HandleRequestCompleted(ResponseString, bSuccess);
 	});

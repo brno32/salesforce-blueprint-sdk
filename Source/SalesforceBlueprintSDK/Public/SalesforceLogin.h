@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintAsyncActionBase.h"
-#include "SalesforceBlueprint.generated.h"
+#include "SalesforceLogin.generated.h"
 
 // Event that will be the 'Completed' exec wire in the blueprint node along with all parameters as output pins.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHttpRequestCompleted, class USalesforce*, Salesforce, bool, bSuccess);
@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHttpRequestCompleted, class USal
  * 
  */
 UCLASS()
-class SALESFORCEBLUEPRINTSDK_API USalesforceBlueprint : public UBlueprintAsyncActionBase
+class SALESFORCEBLUEPRINTSDK_API USalesforceLogin : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 	
@@ -25,7 +25,7 @@ public:
 	virtual void Activate() override;
 
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "Salesforce", WorldContext = "WorldContextObject"))
-	static USalesforceBlueprint* ConnectToSalesforce(
+	static USalesforceLogin* LoginToSalesforce(
 		UObject* WorldContextObject,
 		const FString& Username,
 		const FString& Password,
