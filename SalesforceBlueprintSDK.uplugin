@@ -8,7 +8,8 @@
 	"CreatedBy": "brno32",
 	"CreatedByURL": "https://github.com/brno32",
 	"DocsURL": "https://docs.google.com/document/d/16XcUQQm5IelJE6GlYuU3ER6zGCN93yBLD4eN5eeVtbg/edit?usp=sharing",
-	"MarketplaceURL": "",
+	"EngineVersion" : "4.27.0",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/21dffe7329844fa5b9eeed24d7dbd8b3",
 	"SupportURL": "",
 	"CanContainContent": false,
 	"IsBetaVersion": false,
@@ -18,7 +19,8 @@
 		{
 			"Name": "SalesforceBlueprintSDK",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Linux" ]
 		}
 	]
 }

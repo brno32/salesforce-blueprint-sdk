@@ -1,4 +1,4 @@
-// Copyright brno32. All Rights Reserved.
+// Copyright 2022 brno32. All Rights Reserved.
 
 #pragma once
 
