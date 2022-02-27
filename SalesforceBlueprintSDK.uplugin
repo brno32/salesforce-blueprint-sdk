@@ -20,7 +20,7 @@
 			"Name": "SalesforceBlueprintSDK",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [ "Win64", "Win32", "Mac", "Linux" ]
+			"WhitelistPlatforms": [ "Win64" ]
 		}
 	]
 }

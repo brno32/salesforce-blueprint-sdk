@@ -4,9 +4,12 @@
 #include "SalesforceLogin.h"
 
 #include "Dom/JsonObject.h"
-#include "Runtime/Online/HTTP/Public/HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Runtime/Online/HTTP/Public/HttpModule.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Serialization/JsonWriter.h"
 
 #include "Salesforce.h"
 
