@@ -1,14 +1,14 @@
 {
 	"FileVersion": 3,
 	"Version": 1,
-	"VersionName": "1.0",
+	"VersionName": "1.1",
 	"FriendlyName": "Salesforce Blueprint SDK",
 	"Description": "A Blueprint-based wrapper for Salesforce's REST API",
 	"Category": "Blueprints",
 	"CreatedBy": "brno32",
 	"CreatedByURL": "https://github.com/brno32",
-	"DocsURL": "https://docs.google.com/document/d/16XcUQQm5IelJE6GlYuU3ER6zGCN93yBLD4eN5eeVtbg/edit?usp=sharing",
-	"EngineVersion" : "4.27.0",
+	"DocsURL": "https://docs.google.com/document/d/13iF6FqQunoIckKf8glv3byVzwvEFNqA_FEl5uQ1x4ko/edit?usp=sharing",
+	"EngineVersion": "4.27.0",
 	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/21dffe7329844fa5b9eeed24d7dbd8b3",
 	"SupportURL": "",
 	"CanContainContent": false,
@@ -20,7 +20,9 @@
 			"Name": "SalesforceBlueprintSDK",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [ "Win64" ]
+			"PlatformAllowList": [
+				"Win64"
+			]
 		}
 	]
 }
