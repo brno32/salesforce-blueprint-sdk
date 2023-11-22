@@ -57,17 +57,16 @@ void USalesforceLogin::Activate()
 	Request->SetURL(TEXT("https://") + Domain + TEXT(".salesforce.com/services/Soap/u/") + DefaultApiVersion);
 	Request->OnProcessRequestComplete().BindLambda([this](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
 	{
-		FString ResponseString = "";
-		if (bSuccess)
-		{
-			ResponseString = Response->GetContentAsString();
-		}
-        else
-        {
-            UE_LOG(LogTemp, Error, TEXT("%s"), *Response->GetContentAsString())
-        }
+		FString ResponseString = Response->GetContentAsString();
+		int32 StatusCode = Response->GetResponseCode();
 
-		HandleRequestCompleted(ResponseString, bSuccess);
+		bool bSuccessfulResponse = bSuccess && StatusCode <= 308;
+		if (!bSuccessfulResponse)
+		{
+			UE_LOG(LogTemp, Error, TEXT("%s"), *ResponseString)
+		}
+
+		HandleRequestCompleted(ResponseString, bSuccessfulResponse);
 	});
 	Request->SetHeader(TEXT("Content-Type"), TEXT("text/xml"));
     Request->SetHeader(TEXT("charset"), TEXT("UTF-8"));
@@ -112,6 +111,10 @@ void USalesforceLogin::HandleRequestCompleted(FString ResponseString, bool bSucc
 		Salesforce->OrgRestDomain = OrgRestDomain;
 		Salesforce->BaseUrl = BaseUrl;
 		Salesforce->ApiVersion = ApiVersion;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Salesforce login attempt failed!"))
 	}
 
 	Completed.Broadcast(Salesforce, bSuccess);
